@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { catchError } from 'rxjs/operators';
 import { Constants } from '../constants';
 import { Project } from '../model/project';
@@ -9,11 +9,13 @@ import { ErrorObservable } from 'rxjs/observable/ErrorObservable';
 import { UserPermission } from '../model/user-permission';
 import { UserProfile } from '../model/user-profile';
 import { MilestoneStatus } from '../model/milestone-status';
+import { AuthService } from './auth.service';
 
 @Injectable()
 export class ProjectService {
-    constructor(private httpClient: HttpClient) { }
-    
+    constructor(private httpClient: HttpClient,
+                private authService: AuthService) { }
+
     getProjects(): Observable<Project[]> {
         return this.httpClient.get<Project[]>(Constants.apiRoot + 'Projects');
     }
